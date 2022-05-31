@@ -1,0 +1,16 @@
+{
+  "name": "spanner",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "module": "node-index.js",
+  "main": "dist/node-index.js",
+  "scripts": {
+    "build":"rollup -c .\\rollup.config.web.js && rollup -c .\\rollup.config.node.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private":"true",
+  "keywords": [],
+  "author": "Zyan Wlayor",
+  "license": "ISC"
+}
