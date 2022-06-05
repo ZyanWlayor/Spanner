@@ -1,1 +1,1 @@
-export { readableSize,random } from './libs/generic/index'
+export * from './libs/generic/index'

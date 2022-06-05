@@ -1,7 +1,7 @@
 /**
  * @description Handle file size readability
  * @param {Integer} value file size of byte unit
- * @returns string
+ * @returns {String} readable file size
  */
 export default function readableSize(value){
     if(null==value||value==''){
