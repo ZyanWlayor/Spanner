@@ -1,3 +1,4 @@
+import wait from '../generic/wait'
 /**
  * @description a simple wrapper for fetch raw content for a asset
  * @param {String|Request} input target to request
@@ -13,13 +14,26 @@ function requestRaw(input, init) {
         }
     })
 }
+/**
+ * @description wait for web components finish register
+ * @param {integer} componentsCount 
+ * @returns {Promise}
+ */
+function waitForComponentsLoaded(componentsCount){
+    return new Promise(async (res)=>{
+        while(window.customElementsLoadedCount !== componentsCount){
+            await wait(500)
+        }
+        res()
+    })
+}
 
 /**
     * @description util function to load web components,recommand to invoke this function before body parse
     * @param string[] web componets name array to load
     */
 export default function loadComponents(components) {
-    return Promise.all(components.map(component => {
+    let componentsLoadQueue = components.map(component => {
         return new Promise((resolve) => {
             return requestRaw(`/components/templates/${component}.html`).then(templateContent => {
                 // inject web component template
@@ -38,6 +52,8 @@ export default function loadComponents(components) {
                 resolve()
             })
         })
-    }))
+    })
+    componentsLoadQueue.push(waitForComponentsLoaded(components.length))
+    return Promise.all(componentsLoadQueue)
 }
 
